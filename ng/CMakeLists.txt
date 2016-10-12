@@ -18,6 +18,8 @@ if(USE_GUI)
         set_target_properties(netgen PROPERTIES OUTPUT_NAME netgen)
     endif(APPLE)
 
+    add_subdirectory(Togl2.1)
+    install(FILES drawing.tcl DESTINATION ${ng_install_dir_bin} COMPONENT netgen)
 endif(USE_GUI)
 
 if(USE_PYTHON)
@@ -39,6 +41,4 @@ install(FILES
     occgeom.tcl acisgeom.tcl netgen.ocf
     DESTINATION ${ng_install_dir_bin} COMPONENT netgen)
 
-add_subdirectory(Togl2.1)
-install(FILES drawing.tcl DESTINATION ${ng_install_dir_bin} COMPONENT netgen)
 
