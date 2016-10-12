@@ -377,49 +377,50 @@ if(UNIX)
 endif(UNIX)
 
 if(APPLE)
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/nglib/nglib.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
     # create some auxiliary files
-    set(mac_startup ${CMAKE_CURRENT_BINARY_DIR}/startup.sh)
-    file(WRITE ${mac_startup} "\
-#!/bin/sh
-Netgen_BUNDLE=\"`echo \"$0\" | sed -e 's/\\/Contents\\/MacOS\\/startup.sh//'`\"
-Netgen_MACOS=\"$Netgen_BUNDLE/Contents/MacOS\"
-export NETGENDIR=$Netgen_MACOS  
-export DYLD_LIBRARY_PATH=$Netgen_MACOS:$DYLD_LIBRARY_PATH
-# export TIX_LIBRARY=$Netgen_MACOS/library
-# export TCLLIBPATH=$Netgen_MACOS:$TCLLIBPATH
-export PYTHONPATH=$Netgen_BUNDLE/Contents/Resources/lib/python3.5/site-packages:$PYTHONPATH
-cd $Netgen_MACOS
-$Netgen_MACOS/netgen
-")
-    install(PROGRAMS ${mac_startup} DESTINATION ${ng_install_dir_bin})
-
-    set(mac_ngsuite ${CMAKE_CURRENT_BINARY_DIR}/ngsuite.sh)
-    file(WRITE ${mac_ngsuite} "\
-#!/bin/sh
-Netgen_BUNDLE=\"`echo \"$0\" | sed -e 's/\\/Contents\\/MacOS\\/Netgen1//'`\"
-Netgen_MACOS=\"$Netgen_BUNDLE/Contents/MacOS\"
-open -a /Applications/Utilities/Terminal.app $Netgen_MACOS/startup.sh
-")
-    install(PROGRAMS ${mac_ngsuite} DESTINATION ../MacOS RENAME Netgen1)
-
-    set(mac_plist ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
-    file(WRITE ${mac_plist} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>Netgen1</string>
-	<key>CFBundleIconFile</key>
-	<string>Netgen.icns</string>
-        <key>NSHighResolutionCapable</key>
-        <string>True</string>
-</dict>
-</plist>
-")
-    install(FILES ${mac_plist} DESTINATION ../)
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/netgen.icns DESTINATION . RENAME Netgen.icns)
+#     set(mac_startup ${CMAKE_CURRENT_BINARY_DIR}/startup.sh)
+#     file(WRITE ${mac_startup} "\
+# #!/bin/sh
+# Netgen_BUNDLE=\"`echo \"$0\" | sed -e 's/\\/Contents\\/MacOS\\/startup.sh//'`\"
+# Netgen_MACOS=\"$Netgen_BUNDLE/Contents/MacOS\"
+# export NETGENDIR=$Netgen_MACOS
+# export DYLD_LIBRARY_PATH=$Netgen_MACOS:$DYLD_LIBRARY_PATH
+# # export TIX_LIBRARY=$Netgen_MACOS/library
+# # export TCLLIBPATH=$Netgen_MACOS:$TCLLIBPATH
+# export PYTHONPATH=$Netgen_BUNDLE/Contents/Resources/lib/python3.5/site-packages:$PYTHONPATH
+# cd $Netgen_MACOS
+# $Netgen_MACOS/netgen
+# ")
+#     install(PROGRAMS ${mac_startup} DESTINATION ${ng_install_dir_bin})
+#
+#     set(mac_ngsuite ${CMAKE_CURRENT_BINARY_DIR}/ngsuite.sh)
+#     file(WRITE ${mac_ngsuite} "\
+# #!/bin/sh
+# Netgen_BUNDLE=\"`echo \"$0\" | sed -e 's/\\/Contents\\/MacOS\\/Netgen1//'`\"
+# Netgen_MACOS=\"$Netgen_BUNDLE/Contents/MacOS\"
+# open -a /Applications/Utilities/Terminal.app $Netgen_MACOS/startup.sh
+# ")
+#     install(PROGRAMS ${mac_ngsuite} DESTINATION ../MacOS RENAME Netgen1)
+#
+#     set(mac_plist ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
+#     file(WRITE ${mac_plist} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+# <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+# <plist version=\"1.0\">
+# <dict>
+#     <key>CFBundleDevelopmentRegion</key>
+#     <string>English</string>
+#     <key>CFBundleExecutable</key>
+#     <string>Netgen1</string>
+#     <key>CFBundleIconFile</key>
+#     <string>Netgen.icns</string>
+#         <key>NSHighResolutionCapable</key>
+#         <string>True</string>
+# </dict>
+# </plist>
+# ")
+#     install(FILES ${mac_plist} DESTINATION ../)
+#     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/netgen.icns DESTINATION . RENAME Netgen.icns)
 
 endif(APPLE)
 
@@ -490,4 +491,6 @@ message("
 if (ADDITIONAL_PATHS)
   message(WARNING "The use of ADDITIONAL_PATHS is depricated, use CMAKE_PREFIX_PATH instead")
 endif (ADDITIONAL_PATHS)
+
+
 
